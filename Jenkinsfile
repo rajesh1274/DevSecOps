@@ -34,7 +34,7 @@ pipeline {
     stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'sudo cp target/*.jar /home/rajesh4debug/prod/apache-tomcat-8.5.42/webapps/webapp.jar'
+                sh 'sudo cp target/*.war /home/rajesh4debug/prod/apache-tomcat-8.5.42/webapps/webapp.war'
               }      
            }       
     }
