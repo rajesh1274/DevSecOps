@@ -4,6 +4,7 @@ pipeline {
     maven 'Maven'
   }
   stages {
+    
     stage ('Initialize') {
       steps {
         sh '''
@@ -29,11 +30,9 @@ pipeline {
          sh 'wget "https://raw.githubusercontent.com/rajesh1274/DevSecOps/master/owasp-dependency-check.sh" '
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
-        
+         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'  
       }
     }
-    
     
     stage ('Build') {
       steps {
@@ -42,15 +41,12 @@ pipeline {
     }
     
     stage ('Deploy-To-Tomcat') {
-            steps {
-           sshagent(['tomcat']) {
+        steps {
+            sshagent(['tomcat']) {
                 sh 'sudo cp target/*.war /home/rajesh4debug/prod/apache-tomcat-8.5.42/webapps/webapp.war'
-              }      
-           }       
+            }      
+        }       
     }
-    
-    
-    
     
   }
 }
