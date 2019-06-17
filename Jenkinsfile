@@ -51,10 +51,18 @@ pipeline {
     
     stage ('Deploy-To-Tomcat') {
         steps {
-            sshagent(['tomcat']) {
+            
                 sh 'sudo cp target/*.war /home/rajesh4debug/prod/apache-tomcat-8.5.42/webapps/webapp.war'
-            }      
+                  
         }       
+    }
+    
+    stage ('DAST') {
+      steps {
+        
+         sh '"docker run -t owasp/zap2docker-stable zap-baseline.py -t http://13.232.202.25:8080/webapp/" || true'
+        
+      }
     }
     
   }
