@@ -16,7 +16,7 @@ pipeline {
     
     stage ('Check-Git-Secrets') {
       steps {
-        sh 'whoami'
+        sh 'docker -version'
         sh 'rm trufflehog || true'
         sh 'docker run gesellix/trufflehog --json https://github.com/rajesh1274/DevSecOps.git > trufflehog'
         sh 'cat trufflehog'
